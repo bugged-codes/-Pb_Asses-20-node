@@ -1,0 +1,29 @@
+{
+  "name": "20th-node-3",
+  "version": "1.0.0",
+  "description": "Repo for 3rd node Hands-on in which I created server with two middlewares, one that is applicable to all the routes present in backend application and other is applicable to any 2 specific routes, this is to better understand routing and Middlewares in servers.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bugged-codes/-Pb_Asses-20-node.git"
+  },
+  "keywords": [
+    "Hands-on",
+    "Server",
+    "Node",
+    "Express"
+  ],
+  "author": "Vipul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bugged-codes/-Pb_Asses-20-node/issues"
+  },
+  "homepage": "https://github.com/bugged-codes/-Pb_Asses-20-node#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
