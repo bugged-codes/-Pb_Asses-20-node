@@ -15,32 +15,39 @@ app.use('/', router);
 
 // Router-level Middleware (Default to all routes with all methods).
 router.use((req, res, next) => {
-	console.log('Request URL: ', req.originalUrl);
+	console.log('Request URL: ', req.url);
 	console.log('Request Method: ', req.method);
 	next();
 });
 
 const middleware1 = (req, res, next) => {
 	console.log('This is Middlware-1');
-	res.send('<h3>This page is passed through Middleware-1</h3>');
+	// res.write('Note: This page is passed through Middleware-1');
 	next();
 };
 
 const middleware2 = (request, response, nextFunc) => {
 	console.log('This is Middleware-2');
-	res.send('<h3>This page is passed through Middleware-2</h3>');
+	response.write('Note: This page is passed through Middleware-2');
 	nextFunc();
 };
 
-// Router level GET request to "/"
+// Router-level GET request to "/"
 router.get('/', (req, res, next) => {
-	res.send("<h1>This is Homepage!</h1><h3>Different pages on this server are as follows: </h3><ul><li>/page-1</li><li>/api</li><li><a href='/about'>/about</a></li></ul>");
+	res.send("<h1>This is Homepage!</h1><h3>Different pages on this server are as follows: </h3><ul><li><a href='/page-1'>/page-1</a></li><li><a href='/page-2'>/page-2</a></li><li><a href='/api'>/api</a></li><li><a href='/about'>/about✌️</a></li></ul>");
 	// res.end();
 	next();
 });
 
-app.get('page-1', (req, res) => {
-	res.send('This is page-1');
+// App-level GET request to /page-1.
+app.get('/page-1', (req, res) => {
+	res.send('<h1>This is page-1</h1>');
+	res.end();
+});
+
+// Router-level GET request to /page-1.
+router.get('/page-2', middleware1, (req, res) => {
+	res.send('<h1>This is page-2</h1>');
 	res.end();
 });
 
@@ -58,7 +65,13 @@ router.use('/api', (req, res, next) => {
 			BatchMonth: 'September',
 		},
 	});
-	next();
+	// next();
+	res.end();
+});
+
+router.get('/about', middleware2, (req, res) => {
+	res.write('\n\n This is About Page!');
+	res.end();
 });
 
 // App-level Error handeling middlware
